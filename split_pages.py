@@ -33,7 +33,14 @@ def select_pdf_file():
 # Set up the GUI
 root = tk.Tk()
 root.title("PDF Splitter")
-
+# Center the window
+window_width = 400
+window_height = 200
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+x = (screen_width // 2) - (window_width // 2)
+y = (screen_height // 2) - (window_height // 2)
+root.geometry(f"{window_width}x{window_height}+{x}+{y}")
 # Create a button to select the PDF file
 select_button = tk.Button(root, text="Select PDF File", command=select_pdf_file)
 select_button.pack(pady=20)
