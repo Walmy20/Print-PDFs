@@ -63,7 +63,15 @@ def print_pdf(pdf_path):
 # Setting up the Tkinter GUI
 root = tk.Tk()
 root.title("PDF Printer")
-root.geometry("500x400")
+
+# Center the window
+window_width = 500
+window_height = 400
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+x = (screen_width // 2) - (window_width // 2)
+y = (screen_height // 2) - (window_height // 2)
+root.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
 # Create a button to select the folder
 btn_select_folder = tk.Button(root, text="Select Folder", command=select_folder)
