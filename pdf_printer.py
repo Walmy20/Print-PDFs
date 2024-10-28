@@ -45,13 +45,29 @@ def print_selected_pdfs():
 
     # Print all PDFs in the list except the selected ones
     pdf_files = listbox.get(0, tk.END)
+    printed_count = 0  # Count printed files
     for pdf_path in pdf_files:
         if pdf_path not in selected_files:
             print_pdf(pdf_path)
+            printed_count += 1
+            
+    # Show confirmation message
+    if printed_count > 0:
+        messagebox.showinfo("Print Status", f"{printed_count} files sent to the printer.")
+    else:
+        messagebox.showinfo("Print Status", "No files were printed.")
 
 def print_pdf(pdf_path):
-    # Using the os command to print the PDF
+    # Normalize the path (make sure it uses the correct separators)
+    pdf_path = os.path.normpath(pdf_path)
+
+    # Check if the file exists
+    if not os.path.isfile(pdf_path):
+        print(f"File does not exist: {pdf_path}")
+        return
+
     try:
+        print(f"Attempting to print: {pdf_path}")  # Debugging line
         if os.name == 'nt':  # For Windows
             os.startfile(pdf_path, "print")
         else:  # For Unix-based systems
@@ -59,6 +75,7 @@ def print_pdf(pdf_path):
         print(f"Sent {pdf_path} to printer.")
     except Exception as e:
         print(f"Failed to print {pdf_path}: {e}")
+
 
 # Setting up the Tkinter GUI
 root = tk.Tk()
